@@ -1,0 +1,23 @@
+services:
+  rw-pair:
+    build: .
+    env_file:
+      - .env
+    environment:
+      PAIR_ADDR: ":8080"
+      BOT_SUBSCRIPTIONS_URL: ${BOT_SUBSCRIPTIONS_URL}
+      PAIR_INTERNAL_KEY: ${PAIR_INTERNAL_KEY}
+      BOT_INTERNAL_KEY: ${BOT_INTERNAL_KEY:-${PAIR_INTERNAL_KEY}}
+      BOT_TIMEOUT_SECONDS: ${BOT_TIMEOUT_SECONDS:-5}
+    # Порт наружу не публикуется: доступ только через Nginx и docker-сеть.
+    networks:
+      - pair-net
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+    restart: unless-stopped
+
+networks:
+  pair-net:
+    name: pair-net

@@ -15,13 +15,15 @@ var errNoSubscriptions = errors.New("no subscriptions")
 var errUpstream = errors.New("upstream unavailable")
 
 type botClient struct {
-	url  string
-	key  string
-	http *http.Client
+	url              string
+	key              string
+	whitelistBaseURL string
+	basicBaseURL     string
+	http             *http.Client
 }
 
-func newBotClient(url, key string, timeout time.Duration) *botClient {
-	return &botClient{url: url, key: key, http: &http.Client{Timeout: timeout}}
+func newBotClient(url, key string, timeout time.Duration, whitelistBaseURL, basicBaseURL string) *botClient {
+	return &botClient{url: url, key: key, http: &http.Client{Timeout: timeout}, whitelistBaseURL: strings.TrimRight(whitelistBaseURL, "/"), basicBaseURL: strings.TrimRight(basicBaseURL, "/")}
 }
 
 type botKey struct {
@@ -63,7 +65,7 @@ type subscription struct {
 	URL   string `json:"subscription_url"`
 }
 
-func mapSubscriptions(keys []botKey) []subscription {
+func mapSubscriptions(keys []botKey, whitelistBaseURL, basicBaseURL string) []subscription {
 	subs := make([]subscription, 0, len(keys))
 	for _, k := range keys {
 		uuid := k.uuid()
@@ -72,9 +74,9 @@ func mapSubscriptions(keys []botKey) []subscription {
 		}
 		switch strings.ToLower(strings.TrimSpace(k.kind())) {
 		case "_wh", "wh", "whitelist":
-			subs = append(subs, subscription{ID: "_wh", Label: "Whitelist", URL: "https://whitelist.dendenx.cloud/" + uuid})
+			subs = append(subs, subscription{ID: "_wh", Label: "Обход", URL: whitelistBaseURL + "/" + uuid})
 		case "_basic", "basic", "":
-			subs = append(subs, subscription{ID: "_basic", Label: "Basic", URL: "https://sub.dendenx.cloud/" + uuid})
+			subs = append(subs, subscription{ID: "_basic", Label: "Базовый", URL: basicBaseURL + "/" + uuid})
 		default:
 			continue
 		}
@@ -119,7 +121,7 @@ func (c *botClient) fetchSubscriptions(ctx context.Context, telegramID int64) ([
 	if len(keys) == 0 {
 		return nil, errNoSubscriptions
 	}
-	subs := mapSubscriptions(keys)
+	subs := mapSubscriptions(keys, c.whitelistBaseURL, c.basicBaseURL)
 	if len(subs) == 0 {
 		return nil, errNoSubscriptions
 	}

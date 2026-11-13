@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Подключение подписки — RW Pair</title>
+		<title>Введите код — DenDenVPN</title>
 		<meta
 			name="description"
-			content="Введите 6-значный код из Telegram-бота и получите ссылку на подписку на этом компьютере."
+			content="Введите 6 цифр из бота — и получите ссылку для подключения."
 		/>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,14 +19,10 @@
 			:root {
 				--bg: #161b23;
 				--cyan: #22d3ee;
-				--cyan-soft: rgba(34, 211, 238, 0.12);
 				--text: #c9d1d9;
 				--muted: #8b949e;
 				--dim: #6e7681;
 				--border: rgba(255, 255, 255, 0.08);
-				--green: #40c057;
-				--red: #fa5252;
-				--violet: #9775fa;
 			}
 			* {
 				box-sizing: border-box;
@@ -95,33 +91,6 @@
 				align-items: center;
 				gap: 10px;
 			}
-			.header-bot {
-				margin-left: auto;
-				display: inline-flex;
-				align-items: center;
-				gap: 6px;
-				font-family: 'Fira Mono', monospace;
-				font-size: 12px;
-				color: #67e8f9;
-				background: rgba(34, 211, 238, 0.08);
-				border: 1px solid rgba(34, 211, 238, 0.25);
-				border-radius: 9999px;
-				padding: 6px 11px;
-				text-decoration: none;
-				white-space: nowrap;
-				transition: all 0.2s ease;
-			}
-			.header-bot:hover {
-				background: rgba(34, 211, 238, 0.18);
-				border-color: rgba(34, 211, 238, 0.5);
-				box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
-			}
-			@media (max-width: 560px) {
-				.header-bot {
-					font-size: 11px;
-					padding: 5px 8px;
-				}
-			}
 			.logo {
 				width: 32px;
 				height: 32px;
@@ -143,15 +112,26 @@
 				letter-spacing: 0.04em;
 				color: var(--text);
 			}
-			.header-badge {
+			.header-bot {
 				margin-left: auto;
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
 				font-family: 'Fira Mono', monospace;
-				font-size: 11px;
-				color: var(--cyan);
-				background: rgba(34, 211, 238, 0.1);
-				border: 1px solid rgba(34, 211, 238, 0.2);
+				font-size: 12px;
+				color: #67e8f9;
+				background: rgba(34, 211, 238, 0.08);
+				border: 1px solid rgba(34, 211, 238, 0.25);
 				border-radius: 9999px;
-				padding: 4px 9px;
+				padding: 6px 11px;
+				text-decoration: none;
+				white-space: nowrap;
+				transition: all 0.2s ease;
+			}
+			.header-bot:hover {
+				background: rgba(34, 211, 238, 0.18);
+				border-color: rgba(34, 211, 238, 0.5);
+				box-shadow: 0 0 12px rgba(34, 211, 238, 0.2);
 			}
 			.main-container {
 				max-width: 800px;
@@ -199,7 +179,8 @@
 					transform: rotate(360deg);
 				}
 			}
-			.pair-card {
+			.pair-card,
+			.glass-card {
 				max-width: 560px;
 				margin: 0 auto;
 				position: relative;
@@ -214,7 +195,8 @@
 					border-color 0.3s ease,
 					box-shadow 0.3s ease;
 			}
-			.pair-card::before {
+			.pair-card::before,
+			.glass-card::before {
 				content: '';
 				position: absolute;
 				top: 0;
@@ -229,7 +211,8 @@
 					transparent
 				);
 			}
-			.pair-card:hover {
+			.pair-card:hover,
+			.glass-card:hover {
 				border-color: rgba(34, 211, 238, 0.3);
 				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 			}
@@ -258,103 +241,12 @@
 				margin: 0 auto 20px;
 				max-width: 440px;
 			}
-			.steps {
-				display: flex;
-				gap: 8px;
-				margin: 0 0 20px;
-			}
-			.step {
-				flex: 1;
-				display: flex;
-				align-items: center;
-				gap: 8px;
-				padding: 9px 10px;
-				border-radius: 8px;
-				background: rgba(255, 255, 255, 0.02);
-				border: 1px solid var(--border);
-				color: var(--dim);
-				font-size: 12px;
-				font-weight: 600;
-				line-height: 1.25;
-			}
-			.step b {
-				flex: 0 0 22px;
-				width: 22px;
-				height: 22px;
-				border-radius: 9999px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-family: 'Fira Mono', monospace;
-				font-size: 11px;
-				background: rgba(255, 255, 255, 0.06);
-				color: var(--muted);
-			}
-			.step.active {
-				color: #67e8f9;
-				border-color: rgba(34, 211, 238, 0.3);
-				background: linear-gradient(
-					135deg,
-					rgba(34, 211, 238, 0.1),
-					rgba(6, 182, 212, 0.05)
-				);
-			}
-			.step.active b {
-				background: var(--cyan);
-				color: #062a33;
-			}
-			.step.done {
-				color: var(--muted);
-			}
-			.step.done b {
-				background: rgba(64, 192, 87, 0.2);
-				color: #86efac;
-			}
-			.info-grid {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				gap: 8px;
-				margin-bottom: 20px;
-			}
-			.info-block {
-				padding: 10px 12px;
-				border-radius: 8px;
-				display: flex;
-				flex-direction: column;
-				gap: 3px;
-				font-size: 12px;
-				line-height: 1.45;
-				color: #b1bac4;
-			}
-			.info-block strong {
+			.chosen-name {
+				text-align: center;
 				font-family: 'Unbounded', sans-serif;
-				font-size: 12px;
-				color: #fff;
-				font-weight: 600;
-			}
-			.info-block-cyan {
-				background: linear-gradient(
-					135deg,
-					rgba(34, 211, 238, 0.1),
-					rgba(6, 182, 212, 0.05)
-				);
-				border: 1px solid rgba(34, 211, 238, 0.2);
-			}
-			.info-block-violet {
-				background: linear-gradient(
-					135deg,
-					rgba(151, 117, 250, 0.1),
-					rgba(132, 94, 247, 0.05)
-				);
-				border: 1px solid rgba(151, 117, 250, 0.2);
-			}
-			.info-block-green {
-				background: linear-gradient(
-					135deg,
-					rgba(64, 192, 87, 0.1),
-					rgba(55, 178, 77, 0.05)
-				);
-				border: 1px solid rgba(64, 192, 87, 0.2);
+				font-size: 16px;
+				color: #67e8f9;
+				margin: 0 0 16px;
 			}
 			.field-label {
 				font-size: 13px;
@@ -480,23 +372,6 @@
 				color: #fca5a5;
 				animation: pop 0.25s ease;
 			}
-			.section {
-				margin-top: 24px;
-				animation: pop 0.3s ease;
-			}
-			.section h2 {
-				font-family: 'Unbounded', sans-serif;
-				font-weight: 600;
-				font-size: 16px;
-				margin: 0 0 4px;
-				color: var(--text);
-			}
-			.section p {
-				color: var(--muted);
-				font-size: 13px;
-				line-height: 1.55;
-				margin: 0 0 14px;
-			}
 			.sub-list {
 				display: flex;
 				flex-direction: column;
@@ -524,18 +399,6 @@
 				background: rgba(255, 255, 255, 0.05);
 				border-left-color: rgba(255, 255, 255, 0.25);
 			}
-			.sub-card.active {
-				background: linear-gradient(
-					90deg,
-					rgba(34, 211, 238, 0.12),
-					rgba(34, 211, 238, 0.04)
-				);
-				border-color: rgba(34, 211, 238, 0.2);
-				border-left-color: var(--cyan);
-				box-shadow:
-					inset 4px 0 12px -4px rgba(34, 211, 238, 0.3),
-					0 0 12px rgba(34, 211, 238, 0.1);
-			}
 			.sub-icon {
 				flex: 0 0 40px;
 				width: 40px;
@@ -551,10 +414,6 @@
 				background: linear-gradient(135deg, #182b36, #152229);
 				border: 1px solid rgba(34, 211, 238, 0.25);
 			}
-			.sub-card.active .sub-icon {
-				background: linear-gradient(135deg, #22d3ee, #67e8f9);
-				color: #062a33;
-			}
 			.sub-meta {
 				min-width: 0;
 				flex: 1;
@@ -567,9 +426,6 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
-			.sub-card.active .sub-name {
-				color: #67e8f9;
-			}
 			.sub-domain {
 				font-family: 'Fira Mono', monospace;
 				font-size: 12px;
@@ -578,23 +434,6 @@
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
-			}
-			.sub-check {
-				flex: 0 0 22px;
-				width: 22px;
-				height: 22px;
-				border-radius: 9999px;
-				border: 1px solid #30363d;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 12px;
-				color: transparent;
-			}
-			.sub-card.active .sub-check {
-				background: var(--cyan);
-				border-color: var(--cyan);
-				color: #062a33;
 			}
 			.link-box {
 				margin-top: 16px;
@@ -646,6 +485,52 @@
 				border: 1px solid rgba(64, 192, 87, 0.2);
 				color: #86efac;
 			}
+			.how {
+				margin-top: 16px;
+				padding: 22px 24px;
+			}
+			.how h2 {
+				font-family: 'Unbounded', sans-serif;
+				font-weight: 600;
+				font-size: 15px;
+				margin: 0 0 6px;
+				color: var(--text);
+			}
+			.how-step {
+				display: flex;
+				gap: 12px;
+				padding: 11px 0;
+				border-top: 1px solid rgba(255, 255, 255, 0.05);
+			}
+			.how-step:first-of-type {
+				border-top: none;
+			}
+			.how-step b {
+				flex: 0 0 24px;
+				width: 24px;
+				height: 24px;
+				border-radius: 9999px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: 'Fira Mono', monospace;
+				font-size: 12px;
+				background: rgba(34, 211, 238, 0.15);
+				color: var(--cyan);
+				border: 1px solid rgba(34, 211, 238, 0.3);
+			}
+			.how-step p {
+				margin: 0;
+				font-size: 13px;
+				line-height: 1.55;
+				color: #b1bac4;
+			}
+			.how-step p strong {
+				color: #fff;
+				display: block;
+				font-size: 13px;
+				margin-bottom: 2px;
+			}
 			.footer {
 				max-width: 560px;
 				margin: 16px auto 0;
@@ -653,10 +538,6 @@
 				color: var(--dim);
 				font-size: 12px;
 				line-height: 1.6;
-			}
-			.footer code {
-				font-family: 'Fira Mono', monospace;
-				color: var(--muted);
 			}
 			@media (max-width: 560px) {
 				.pair-card {
@@ -668,15 +549,6 @@
 				}
 				h1 {
 					font-size: 20px;
-				}
-				.steps {
-					flex-direction: column;
-				}
-				.step {
-					padding: 8px 10px;
-				}
-				.info-grid {
-					grid-template-columns: 1fr 1fr;
 				}
 				.otp {
 					gap: 6px;
@@ -691,6 +563,10 @@
 				#copy-btn {
 					width: 100%;
 					height: 48px;
+				}
+				.header-bot {
+					font-size: 11px;
+					padding: 5px 8px;
 				}
 			}
 			@media (prefers-reduced-motion: reduce) {
@@ -717,40 +593,14 @@
 				</div>
 			</header>
 			<main class="main-container">
-				<div class="pair-card">
+				<div id="screen-code" class="pair-card">
 					<div id="lottie" class="hero-animation" aria-hidden="true"></div>
-					<h1>Подключение <span>подписки</span></h1>
+					<h1>Введите <span>код</span></h1>
 					<p class="subtitle">
-						Введите 6-значный код из Telegram-бота — и получите ссылку на
-						подписку прямо на этом компьютере.
+						В боте вам дали 6 цифр. Введите их ниже — и сможете подключиться.
 					</p>
-					<div class="steps" id="steps">
-						<div class="step active" data-step="1">
-							<b>1</b><span>Код из бота</span>
-						</div>
-						<div class="step" data-step="2">
-							<b>2</b><span>Выбор подписки</span>
-						</div>
-						<div class="step" data-step="3">
-							<b>3</b><span>Копирование ссылки</span>
-						</div>
-					</div>
-					<div class="info-grid">
-						<div class="info-block info-block-cyan">
-							<strong>5 минут</strong
-							><span>Код живёт 5 минут и работает один раз</span>
-						</div>
-						<div class="info-block info-block-violet">
-							<strong>Без Telegram</strong
-							><span>На ПК не нужен ни бот, ни мессенджер</span>
-						</div>
-						<div class="info-block info-block-green">
-							<strong>Без копирования</strong
-							><span>Ссылка появляется здесь после ввода кода</span>
-						</div>
-					</div>
 					<form id="redeem-form" autocomplete="off">
-						<label class="field-label" for="otp-0">Код из бота</label>
+						<label class="field-label" for="otp-0">Код</label>
 						<div class="otp" id="otp">
 							<input
 								id="otp-0"
@@ -796,42 +646,68 @@
 								aria-label="Цифра 6"
 							/>
 						</div>
-						<p class="otp-hint">
-							Можно вставить код целиком — он разложится по ячейкам
-							автоматически.
-						</p>
+						<p class="otp-hint">Код можно просто вставить целиком.</p>
 						<button type="submit" class="btn-primary" id="submit-btn">
 							<span class="spinner"></span
-							><span id="submit-text">Получить подписку</span>
+							><span id="submit-text">Показать ссылку</span>
 						</button>
 					</form>
 					<p id="error" role="alert" hidden></p>
-					<section id="subs" class="section" hidden>
-						<h2>Выберите подписку</h2>
-						<p>Код принят. Нажмите на подписку, чтобы увидеть её ссылку.</p>
-						<div id="sub-list" class="sub-list"></div>
-						<div id="selected" hidden>
-							<div class="link-box">
-								<label for="sub-url">Ссылка подписки</label>
-								<div class="link-row">
-									<input id="sub-url" readonly />
-									<button id="copy-btn" type="button" class="btn-primary">
-										Копировать
-									</button>
-								</div>
-								<p id="copied" hidden>
-									Скопировано — вставьте ссылку в ваш VPN-клиент.
-								</p>
-							</div>
-							<button id="reset-btn" type="button" class="btn-ghost">
-								Ввести другой код
+				</div>
+				<div id="screen-choose" class="pair-card" hidden>
+					<h1>Выберите <span>ключ</span></h1>
+					<p class="subtitle">У вас два ключа. Выберите, какой подключить.</p>
+					<div id="choose-list" class="sub-list"></div>
+					<button id="choose-back" type="button" class="btn-ghost">
+						Другой код
+					</button>
+				</div>
+				<div id="screen-link" class="pair-card" hidden>
+					<h1>Ваша <span>ссылка</span></h1>
+					<p id="link-name" class="chosen-name"></p>
+					<div class="link-box">
+						<label for="sub-url">Ссылка для подключения</label>
+						<div class="link-row">
+							<input id="sub-url" readonly />
+							<button id="copy-btn" type="button" class="btn-primary">
+								Копировать
 							</button>
 						</div>
-					</section>
+						<p id="copied" hidden>Скопировано</p>
+					</div>
+					<button id="link-back-choose" type="button" class="btn-ghost" hidden>
+						Выбрать другой ключ
+					</button>
+					<button id="link-reset" type="button" class="btn-ghost">
+						Другой код
+					</button>
+				</div>
+				<div id="how-card" class="glass-card how">
+					<h2>Как это работает</h2>
+					<div class="how-step">
+						<b>1</b>
+						<p>
+							<strong>Бот даёт вам 6 цифр</strong>Откройте @DenDenVPNbot и
+							возьмите код.
+						</p>
+					</div>
+					<div class="how-step">
+						<b>2</b>
+						<p>
+							<strong>Введите цифры сюда</strong>Код можно набрать руками или
+							просто вставить целиком.
+						</p>
+					</div>
+					<div class="how-step">
+						<b>3</b>
+						<p>
+							<strong>Выберите ключ и перейдите по нему</strong>Когда код
+							подойдёт — выберите ваш ключ и просто перейдите по нему.
+						</p>
+					</div>
 				</div>
 				<p class="footer">
-					Код выдаётся в Telegram-боте кнопкой «На компьютер».<br />Если код
-					истёк — запросите новый в боте, старый уже не сработает.
+					Код работает 5 минут. Не успели — возьмите новый в боте.
 				</p>
 			</main>
 		</div>
@@ -862,25 +738,47 @@
 			var submitText = document.getElementById('submit-text')
 			var errorEl = document.getElementById('error')
 			var otpBox = document.getElementById('otp')
-			var subsEl = document.getElementById('subs')
-			var listEl = document.getElementById('sub-list')
-			var selectedEl = document.getElementById('selected')
+			var screenCode = document.getElementById('screen-code')
+			var screenChoose = document.getElementById('screen-choose')
+			var screenLink = document.getElementById('screen-link')
+			var howCard = document.getElementById('how-card')
+			var chooseList = document.getElementById('choose-list')
+			var linkName = document.getElementById('link-name')
 			var urlInput = document.getElementById('sub-url')
 			var copyBtn = document.getElementById('copy-btn')
 			var copiedEl = document.getElementById('copied')
-			var resetBtn = document.getElementById('reset-btn')
-			var steps = Array.prototype.slice.call(document.querySelectorAll('.step'))
-			function setStep(n) {
-				steps.forEach(function (s) {
-					var i = parseInt(s.getAttribute('data-step'), 10)
-					s.classList.toggle('active', i === n)
-					s.classList.toggle('done', i < n)
-					if (i < n) {
-						s.querySelector('b').textContent = '✓'
-					} else {
-						s.querySelector('b').textContent = String(i)
-					}
+			var chooseBack = document.getElementById('choose-back')
+			var linkBackChoose = document.getElementById('link-back-choose')
+			var linkReset = document.getElementById('link-reset')
+			var currentSubs = []
+			function showScreen(name) {
+				screenCode.hidden = name !== 'code'
+				screenChoose.hidden = name !== 'choose'
+				screenLink.hidden = name !== 'link'
+				howCard.hidden = name !== 'code'
+				window.scrollTo(0, 0)
+				if (name === 'code') {
+					inputs[0].focus()
+				}
+			}
+			function showLink(sub) {
+				linkName.textContent = sub.label || sub.id
+				urlInput.value = sub.subscription_url
+				copiedEl.hidden = true
+				copyBtn.textContent = 'Копировать'
+				linkBackChoose.hidden = currentSubs.length < 2
+				showScreen('link')
+				urlInput.focus()
+				urlInput.select()
+			}
+			function resetToCode() {
+				inputs.forEach(function (i) {
+					i.value = ''
 				})
+				updateFilled()
+				hideError()
+				currentSubs = []
+				showScreen('code')
 			}
 			function getCode() {
 				return inputs
@@ -892,7 +790,7 @@
 			function setLoading(on) {
 				submitBtn.disabled = on
 				submitBtn.classList.toggle('loading', on)
-				submitText.textContent = on ? 'Проверяем код…' : 'Получить подписку'
+				submitText.textContent = on ? 'Проверяем…' : 'Показать ссылку'
 			}
 			function showError(msg) {
 				errorEl.textContent = msg
@@ -914,6 +812,9 @@
 				input.addEventListener('input', function () {
 					input.value = input.value.replace(/[^0-9]/g, '').slice(0, 1)
 					updateFilled()
+					if (getCode().length < 6) {
+						hideError()
+					}
 					if (input.value && idx < 5) {
 						inputs[idx + 1].focus()
 					}
@@ -925,6 +826,7 @@
 				input.addEventListener('keydown', function (e) {
 					if (e.key === 'Backspace' && !input.value && idx > 0) {
 						e.preventDefault()
+						hideError()
 						inputs[idx - 1].focus()
 						inputs[idx - 1].value = ''
 					}
@@ -948,6 +850,9 @@
 								inputs[i].value = d
 							})
 						updateFilled()
+						if (getCode().length < 6) {
+							hideError()
+						}
 						if (digits.length >= 6) {
 							form.requestSubmit()
 						} else {
@@ -964,13 +869,11 @@
 				e.preventDefault()
 				var code = getCode()
 				if (!/^[0-9]{6}$/.test(code)) {
-					showError('Введите все 6 цифр кода.')
+					showError('Введите все 6 цифр.')
 					inputs[0].focus()
 					return
 				}
 				hideError()
-				subsEl.hidden = true
-				selectedEl.hidden = true
 				setLoading(true)
 				try {
 					var resp = await fetch('/pair/redeem', {
@@ -979,39 +882,37 @@
 						body: JSON.stringify({ code: code }),
 					})
 					if (resp.status === 404) {
-						showError(
-							'Код не найден. Проверьте цифры или запросите новый код в боте.',
-						)
+						showError('Такого кода нет.')
 						return
 					}
 					if (resp.status === 410) {
-						showError('Код истёк. Запросите новый код в боте.')
+						showError('Код истёк.')
 						return
 					}
 					if (resp.status === 429) {
-						showError(
-							'Слишком много попыток. Подождите минуту и попробуйте снова.',
-						)
+						showError('Слишком много попыток. Подождите минуту.')
 						return
 					}
 					if (resp.status === 502 || resp.status === 503) {
-						showError(
-							'Сервис временно недоступен. Повторите ввод — код не сгорел.',
-						)
+						showError('Сервер сейчас недоступен. Попробуйте ещё раз.')
 						return
 					}
 					if (!resp.ok) {
-						showError('Не удалось получить подписку. Попробуйте ещё раз.')
+						showError('Не получилось. Попробуйте ещё раз.')
 						return
 					}
 					var data = await resp.json()
 					if (!data.subscriptions || data.subscriptions.length === 0) {
-						showError('У пользователя нет подписок.')
+						showError('Подписок не нашлось.')
 						return
 					}
-					listEl.innerHTML = ''
-					setStep(2)
-					data.subscriptions.forEach(function (sub, idx) {
+					currentSubs = data.subscriptions
+					if (currentSubs.length === 1) {
+						showLink(currentSubs[0])
+						return
+					}
+					chooseList.innerHTML = ''
+					currentSubs.forEach(function (sub) {
 						var btn = document.createElement('button')
 						btn.type = 'button'
 						btn.className = 'sub-card'
@@ -1035,36 +936,16 @@
 						}
 						meta.appendChild(name)
 						meta.appendChild(domain)
-						var check = document.createElement('span')
-						check.className = 'sub-check'
-						check.textContent = '✓'
 						btn.appendChild(icon)
 						btn.appendChild(meta)
-						btn.appendChild(check)
 						btn.addEventListener('click', function () {
-							listEl.querySelectorAll('.sub-card').forEach(function (b) {
-								b.classList.remove('active')
-							})
-							btn.classList.add('active')
-							urlInput.value = sub.subscription_url
-							selectedEl.hidden = false
-							copiedEl.hidden = true
-							copyBtn.textContent = 'Копировать'
-							setStep(3)
-							urlInput.focus()
-							urlInput.select()
+							showLink(sub)
 						})
-						listEl.appendChild(btn)
-						if (idx === 0 && data.subscriptions.length === 1) {
-							btn.click()
-						}
+						chooseList.appendChild(btn)
 					})
-					subsEl.hidden = false
-					subsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+					showScreen('choose')
 				} catch (err) {
-					showError(
-						'Нет связи с сервером. Проверьте соединение и попробуйте ещё раз.',
-					)
+					showError('Не получилось. Попробуйте ещё раз.')
 				} finally {
 					setLoading(false)
 				}
@@ -1081,16 +962,14 @@
 					copyBtn.textContent = 'Скопировано ✓'
 				}
 			})
-			resetBtn.addEventListener('click', function () {
-				inputs.forEach(function (i) {
-					i.value = ''
-				})
-				updateFilled()
-				subsEl.hidden = true
-				selectedEl.hidden = true
-				hideError()
-				setStep(1)
-				inputs[0].focus()
+			chooseBack.addEventListener('click', function () {
+				resetToCode()
+			})
+			linkBackChoose.addEventListener('click', function () {
+				showScreen('choose')
+			})
+			linkReset.addEventListener('click', function () {
+				resetToCode()
 			})
 		</script>
 	</body>

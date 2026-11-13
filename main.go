@@ -18,11 +18,13 @@ const defaultTTLSeconds = 300
 const maxFailedAttempts = 5
 
 type config struct {
-	addr        string
-	internalKey string
-	botURL      string
-	botKey      string
-	botTimeout  time.Duration
+	addr             string
+	internalKey      string
+	botURL           string
+	botKey           string
+	botTimeout       time.Duration
+	whitelistBaseURL string
+	basicBaseURL     string
 }
 
 func getenv(key, def string) string {
@@ -34,11 +36,13 @@ func getenv(key, def string) string {
 
 func loadConfig() (config, error) {
 	cfg := config{
-		addr:        getenv("PAIR_ADDR", ":8080"),
-		internalKey: os.Getenv("PAIR_INTERNAL_KEY"),
-		botURL:      os.Getenv("BOT_SUBSCRIPTIONS_URL"),
-		botKey:      os.Getenv("BOT_INTERNAL_KEY"),
-		botTimeout:  5 * time.Second,
+		addr:             getenv("PAIR_ADDR", ":8080"),
+		internalKey:      os.Getenv("PAIR_INTERNAL_KEY"),
+		botURL:           os.Getenv("BOT_SUBSCRIPTIONS_URL"),
+		botKey:           os.Getenv("BOT_INTERNAL_KEY"),
+		botTimeout:       5 * time.Second,
+		whitelistBaseURL: getenv("WHITELIST_BASE_URL", "https://whitelist.dendenx.cloud"),
+		basicBaseURL:     getenv("BASIC_BASE_URL", "https://sub.dendenx.cloud"),
 	}
 	if cfg.internalKey == "" {
 		return cfg, errors.New("PAIR_INTERNAL_KEY is not set")
@@ -244,7 +248,7 @@ func main() {
 		cfg:     cfg,
 		store:   store,
 		limiter: newRateLimiter(5, time.Minute),
-		bot:     newBotClient(cfg.botURL, cfg.botKey, cfg.botTimeout),
+		bot:     newBotClient(cfg.botURL, cfg.botKey, cfg.botTimeout, cfg.whitelistBaseURL, cfg.basicBaseURL),
 	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/pair/create", srv.handleCreate)

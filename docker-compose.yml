@@ -4,17 +4,17 @@ services:
     env_file:
       - .env
     environment:
-      PAIR_ADDR: ":8090"
+      PAIR_ADDR: ':8090'
       BOT_SUBSCRIPTIONS_URL: ${BOT_SUBSCRIPTIONS_URL}
       PAIR_INTERNAL_KEY: ${PAIR_INTERNAL_KEY}
       BOT_INTERNAL_KEY: ${BOT_INTERNAL_KEY:-${PAIR_INTERNAL_KEY}}
       BOT_TIMEOUT_SECONDS: ${BOT_TIMEOUT_SECONDS:-5}
-      WHITELIST_BASE_URL: ${WHITELIST_BASE_URL:-https://whitelist.dendenx.cloud}
-      BASIC_BASE_URL: ${BASIC_BASE_URL:-https://sub.dendenx.cloud}
+      WHITELIST_BASE_URL: ${WHITELIST_BASE_URL}
+      BASIC_BASE_URL: ${BASIC_BASE_URL}
     # Порт только на loopback хоста: Nginx ходит на 127.0.0.1:8090.
     # Снаружи порт закрыт, публичный create по-прежнему запрещён.
     ports:
-      - "127.0.0.1:8090:8090"
+      - '127.0.0.1:8090:8090'
     networks:
       - pair-net
     deploy:

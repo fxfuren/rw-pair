@@ -41,8 +41,8 @@ func loadConfig() (config, error) {
 		botURL:           os.Getenv("BOT_SUBSCRIPTIONS_URL"),
 		botKey:           os.Getenv("BOT_INTERNAL_KEY"),
 		botTimeout:       5 * time.Second,
-		whitelistBaseURL: getenv("WHITELIST_BASE_URL", "https://whitelist.dendenx.cloud"),
-		basicBaseURL:     getenv("BASIC_BASE_URL", "https://sub.dendenx.cloud"),
+		whitelistBaseURL: os.Getenv("WHITELIST_BASE_URL"),
+		basicBaseURL:     os.Getenv("BASIC_BASE_URL"),
 	}
 	if cfg.internalKey == "" {
 		return cfg, errors.New("PAIR_INTERNAL_KEY is not set")
@@ -52,6 +52,12 @@ func loadConfig() (config, error) {
 	}
 	if cfg.botKey == "" {
 		cfg.botKey = cfg.internalKey
+	}
+	if cfg.whitelistBaseURL == "" {
+		return cfg, errors.New("WHITELIST_BASE_URL is not set")
+	}
+	if cfg.basicBaseURL == "" {
+		return cfg, errors.New("BASIC_BASE_URL is not set")
 	}
 	if v := os.Getenv("BOT_TIMEOUT_SECONDS"); v != "" {
 		n, err := strconv.Atoi(v)

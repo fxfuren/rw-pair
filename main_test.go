@@ -14,7 +14,7 @@ func newTestServer(botURL string) *server {
 		cfg:     config{internalKey: "test-key", botURL: botURL, botKey: "test-key", botTimeout: 2 * time.Second},
 		store:   newPairStore(),
 		limiter: newRateLimiter(5, time.Minute),
-		bot:     newBotClient(botURL, "test-key", 2*time.Second, "https://whitelist.dendenx.cloud", "https://sub.dendenx.cloud"),
+		bot:     newBotClient(botURL, "test-key", 2*time.Second, "https://whitelist.example.com", "https://sub.example.com"),
 	}
 }
 
@@ -122,10 +122,10 @@ func TestRedeemSuccessTwoKeys(t *testing.T) {
 	if len(resp.Subscriptions) != 2 {
 		t.Fatalf("subscriptions = %d, want 2", len(resp.Subscriptions))
 	}
-	if resp.Subscriptions[0].URL != "https://whitelist.dendenx.cloud/uuid-wh" {
+	if resp.Subscriptions[0].URL != "https://whitelist.example.com/uuid-wh" {
 		t.Fatalf("wh url = %q", resp.Subscriptions[0].URL)
 	}
-	if resp.Subscriptions[1].URL != "https://sub.dendenx.cloud/uuid-basic" {
+	if resp.Subscriptions[1].URL != "https://sub.example.com/uuid-basic" {
 		t.Fatalf("basic url = %q", resp.Subscriptions[1].URL)
 	}
 	if resp.Subscriptions[0].Label != "Обход" || resp.Subscriptions[1].Label != "Базовый" {
@@ -276,11 +276,11 @@ func TestHealth(t *testing.T) {
 
 func TestMapSubscriptions(t *testing.T) {
 	keys := []botKey{{ShortUUID: "a1", Type: "_wh"}, {ShortUUID: "b2", Type: "_basic"}, {ShortUUID: "c3", Type: "unknown"}}
-	subs := mapSubscriptions(keys, "https://whitelist.dendenx.cloud", "https://sub.dendenx.cloud")
+	subs := mapSubscriptions(keys, "https://whitelist.example.com", "https://sub.example.com")
 	if len(subs) != 2 {
 		t.Fatalf("mapped = %d, want 2", len(subs))
 	}
-	if subs[0].URL != "https://whitelist.dendenx.cloud/a1" || subs[1].URL != "https://sub.dendenx.cloud/b2" {
+	if subs[0].URL != "https://whitelist.example.com/a1" || subs[1].URL != "https://sub.example.com/b2" {
 		t.Fatalf("mapped urls = %+v", subs)
 	}
 	if subs[0].Label != "Обход" || subs[1].Label != "Базовый" {

@@ -11,14 +11,15 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:wght@100..900&family=Unbounded:wght@200..900&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="/lottie.min.js"></script>
+		<script src="lottie.min.js"></script>
 		<style>
 			:root {
 				--bg: #161b23;
 				--cyan: #22d3ee;
+				--cyan-light: #a5f3fc;
 				--text: #c9d1d9;
 				--muted: #8b949e;
 				--dim: #6e7681;
@@ -46,10 +47,17 @@
 					);
 				background-size: 60px 60px;
 				background-attachment: fixed;
+				position: relative;
 				color: #fff;
-				font-family: 'Montserrat', sans-serif;
+				font-family:
+					'Montserrat', 'Apple Color Emoji', 'Noto Sans SC', sans-serif;
 				-webkit-font-smoothing: antialiased;
 			}
+			button,
+			input {
+				font: inherit;
+			}
+
 			.animated-background {
 				position: fixed;
 				inset: 0;
@@ -107,7 +115,7 @@
 			}
 			.header-title {
 				font-family: 'Unbounded', sans-serif;
-				font-weight: 600;
+				font-weight: 800;
 				font-size: 14px;
 				letter-spacing: 0.04em;
 				color: var(--text);
@@ -221,11 +229,21 @@
 				height: 168px;
 				margin: -8px auto 0;
 				filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
+				position: relative;
+				display: grid;
+				place-items: center;
+			}
+			.hero-animation svg {
+				position: relative;
+				z-index: 1;
 			}
 			h1 {
-				font-family: 'Unbounded', sans-serif;
+				font-family:
+					'Unbounded', Vazirmatn, 'Apple Color Emoji', 'Noto Sans SC',
+					sans-serif;
 				font-weight: 600;
 				font-size: 23px;
+
 				line-height: 1.25;
 				margin: 6px 0 8px;
 				text-align: center;
@@ -243,7 +261,9 @@
 			}
 			.chosen-name {
 				text-align: center;
-				font-family: 'Unbounded', sans-serif;
+				font-family:
+					'Unbounded', Vazirmatn, 'Apple Color Emoji', 'Noto Sans SC',
+					sans-serif;
 				font-size: 16px;
 				color: #67e8f9;
 				margin: 0 0 16px;
@@ -269,26 +289,15 @@
 				font-size: 24px;
 				font-weight: 500;
 				color: var(--text);
-				background: rgba(255, 255, 255, 0.02);
+				background: rgba(255, 255, 255, 0.035);
 				border: 1px solid #30363d;
-				border-radius: 8px;
+				border-radius: 12px;
 				outline: none;
 				transition:
 					border-color 0.2s ease,
 					box-shadow 0.2s ease,
 					background 0.2s ease;
 				padding: 0;
-			}
-			.otp input:focus {
-				border-color: rgba(34, 211, 238, 0.6);
-				box-shadow:
-					0 0 0 3px rgba(34, 211, 238, 0.15),
-					0 0 12px rgba(34, 211, 238, 0.2);
-				background: rgba(34, 211, 238, 0.04);
-			}
-			.otp input.filled {
-				border-color: rgba(34, 211, 238, 0.45);
-				color: #fff;
 			}
 			.otp.error input {
 				animation: shake 0.35s ease;
@@ -320,9 +329,7 @@
 				margin-top: 16px;
 			}
 			.btn-primary:hover:not(:disabled) {
-				background: rgba(34, 211, 238, 0.25);
-				border-color: rgba(34, 211, 238, 0.5);
-				box-shadow: 0 0 16px rgba(34, 211, 238, 0.2);
+				background: rgba(34, 211, 238, 0.2);
 			}
 			.btn-primary:disabled {
 				opacity: 0.55;
@@ -438,7 +445,7 @@
 			.link-box {
 				margin-top: 16px;
 				padding: 16px;
-				border-radius: 8px;
+				border-radius: 12px;
 				background: #161b22;
 				border: 1px solid rgba(34, 211, 238, 0.2);
 			}
@@ -461,7 +468,7 @@
 				padding: 12px;
 				background: rgba(255, 255, 255, 0.02);
 				border: 1px solid #30363d;
-				border-radius: 8px;
+				border-radius: 12px;
 				color: var(--text);
 				outline: none;
 			}
@@ -574,6 +581,59 @@
 					animation: none !important;
 					transition: none !important;
 				}
+			}
+			.header-title,
+			h1,
+			.chosen-name,
+			.how h2 {
+				font-family: 'Manrope', sans-serif;
+				letter-spacing: -0.015em;
+			}
+			.header-title {
+				font-weight: 800;
+			}
+			h1 {
+				font-weight: 800;
+				font-size: 25px;
+			}
+			.subtitle,
+			.how-step p,
+			.sub-name,
+			.btn-primary,
+			.btn-ghost {
+				font-weight: 600;
+			}
+			.pair-card,
+			.glass-card {
+				border-radius: 16px;
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.otp input,
+			.btn-primary,
+			.btn-ghost,
+			.sub-card,
+			.link-box,
+			#error,
+			#copied,
+			#sub-url {
+				border-radius: 8px;
+			}
+			.btn-primary {
+				background: rgba(34, 211, 238, 0.15);
+				border-color: rgba(34, 211, 238, 0.3);
+			}
+			.btn-primary:hover:not(:disabled) {
+				background: rgba(34, 211, 238, 0.25);
+			}
+			.otp input {
+				background: rgba(255, 255, 255, 0.02);
+			}
+			.sub-card {
+				border-left-width: 3px;
+				padding: 14px 16px;
+			}
+			.hero-animation {
+				filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
 			}
 		</style>
 	</head>
@@ -721,13 +781,11 @@
 							renderer: 'svg',
 							loop: true,
 							autoplay: true,
-							path: '/mottyemojianim_agadnswaaut5oes.json',
+							path: 'mottyemojianim_agadnswaaut5oes.json',
 						})
 					} catch (e) {
-						box.style.display = 'none'
+						box.hidden = true
 					}
-				} else if (box) {
-					box.style.display = 'none'
 				}
 			})()
 			var form = document.getElementById('redeem-form')
@@ -803,9 +861,58 @@
 			function hideError() {
 				errorEl.hidden = true
 			}
+			function redeemErrorMessage(status, serverError, retryAfter) {
+				if (serverError === 'code not found') {
+					return 'Такого кода нет. Проверьте цифры или возьмите новый код в боте.'
+				}
+				if (serverError === 'no subscriptions') {
+					return 'По этому коду подписок не найдено. Возьмите новый код в боте.'
+				}
+				if (serverError === 'code expired') {
+					return 'Код истёк. Код действует 5 минут — возьмите новый в боте.'
+				}
+				if (serverError === 'invalid code' || serverError === 'invalid body') {
+					return 'Код должен состоять из 6 цифр. Проверьте ввод.'
+				}
+				if (serverError === 'too many attempts') {
+					var seconds = parseInt(retryAfter || '60', 10)
+					if (isNaN(seconds) || seconds <= 0) seconds = 60
+					return (
+						'Слишком много попыток. Подождите ' +
+						seconds +
+						' сек. и попробуйте снова.'
+					)
+				}
+				if (serverError === 'upstream unavailable') {
+					return 'Сервер подписок сейчас недоступен. Попробуйте через минуту.'
+				}
+				if (status === 404) {
+					return 'Такого кода нет. Проверьте цифры или возьмите новый код в боте.'
+				}
+				if (status === 410) {
+					return 'Код истёк. Код действует 5 минут — возьмите новый в боте.'
+				}
+				if (status === 429) {
+					return 'Слишком много попыток. Подождите минуту и попробуйте снова.'
+				}
+				if (status === 400) {
+					return 'Код должен состоять из 6 цифр. Проверьте ввод.'
+				}
+				if (status === 502 || status === 503 || status === 504) {
+					return 'Сервер подписок сейчас недоступен. Попробуйте через минуту.'
+				}
+				if (status >= 500) {
+					return 'Ошибка сервера (' + status + '). Попробуйте позже.'
+				}
+				return (
+					'Не удалось проверить код (ошибка ' +
+					status +
+					'). Попробуйте ещё раз.'
+				)
+			}
 			function updateFilled() {
 				inputs.forEach(function (i) {
-					i.classList.toggle('filled', i.value !== '')
+					i.classList.remove('filled')
 				})
 			}
 			inputs.forEach(function (input, idx) {
@@ -829,6 +936,7 @@
 						hideError()
 						inputs[idx - 1].focus()
 						inputs[idx - 1].value = ''
+						updateFilled()
 					}
 					if (e.key === 'ArrowLeft' && idx > 0) {
 						inputs[idx - 1].focus()
@@ -875,35 +983,40 @@
 				}
 				hideError()
 				setLoading(true)
+				var controller = new AbortController()
+				var timeoutId = setTimeout(function () {
+					controller.abort()
+				}, 10000)
 				try {
 					var resp = await fetch('/pair/redeem', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: JSON.stringify({ code: code }),
+						signal: controller.signal,
 					})
-					if (resp.status === 404) {
-						showError('Такого кода нет.')
-						return
-					}
-					if (resp.status === 410) {
-						showError('Код истёк.')
-						return
-					}
-					if (resp.status === 429) {
-						showError('Слишком много попыток. Подождите минуту.')
-						return
-					}
-					if (resp.status === 502 || resp.status === 503) {
-						showError('Сервер сейчас недоступен. Попробуйте ещё раз.')
-						return
+					clearTimeout(timeoutId)
+					var data = null
+					try {
+						data = await resp.json()
+					} catch (e) {
+						data = null
 					}
 					if (!resp.ok) {
-						showError('Не получилось. Попробуйте ещё раз.')
+						var serverError =
+							data && typeof data.error === 'string' ? data.error : ''
+						showError(
+							redeemErrorMessage(
+								resp.status,
+								serverError,
+								resp.headers.get('Retry-After'),
+							),
+						)
 						return
 					}
-					var data = await resp.json()
-					if (!data.subscriptions || data.subscriptions.length === 0) {
-						showError('Подписок не нашлось.')
+					if (!data || !data.subscriptions || data.subscriptions.length === 0) {
+						showError(
+							'По этому коду подписок не найдено. Возьмите новый код в боте.',
+						)
 						return
 					}
 					currentSubs = data.subscriptions
@@ -945,7 +1058,16 @@
 					})
 					showScreen('choose')
 				} catch (err) {
-					showError('Не получилось. Попробуйте ещё раз.')
+					clearTimeout(timeoutId)
+					if (err && err.name === 'AbortError') {
+						showError(
+							'Сервер не отвечает. Проверьте соединение и попробуйте ещё раз.',
+						)
+					} else {
+						showError(
+							'Нет соединения с сервером. Проверьте интернет и попробуйте ещё раз.',
+						)
+					}
 				} finally {
 					setLoading(false)
 				}

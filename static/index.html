@@ -14,7 +14,12 @@
 			href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:wght@100..900&family=Unbounded:wght@200..900&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="lottie.min.js"></script>
+		<script src="/lottie.min.js"></script>
+		<script>
+			if (typeof lottie === 'undefined') {
+				document.write('<script src="lottie.min.js"><\/script>')
+			}
+		</script>
 		<style>
 			:root {
 				--bg: #161b23;
@@ -774,18 +779,50 @@
 		<script>
 			;(function () {
 				var box = document.getElementById('lottie')
-				if (window.lottie && box) {
-					try {
-						window.lottie.loadAnimation({
-							container: box,
-							renderer: 'svg',
-							loop: true,
-							autoplay: true,
-							path: 'mottyemojianim_agadnswaaut5oes.json',
-						})
-					} catch (e) {
+				if (!box) return
+				function start() {
+					if (!window.lottie) {
 						box.hidden = true
+						return
 					}
+					var candidates = [
+						'/mottyemojianim_agadnswaaut5oes.json',
+						'mottyemojianim_agadnswaaut5oes.json',
+					]
+					var i = 0
+					function tryNext() {
+						if (i >= candidates.length) {
+							box.hidden = true
+							return
+						}
+						fetch(candidates[i++])
+							.then(function (res) {
+								if (!res.ok) throw new Error('http ' + res.status)
+								return res.json()
+							})
+							.then(function (data) {
+								window.lottie.loadAnimation({
+									container: box,
+									renderer: 'svg',
+									loop: true,
+									autoplay: true,
+									animationData: data,
+								})
+							})
+							.catch(tryNext)
+					}
+					tryNext()
+				}
+				if (window.lottie) {
+					start()
+				} else {
+					var tries = 0
+					var timer = setInterval(function () {
+						if (window.lottie || ++tries > 20) {
+							clearInterval(timer)
+							start()
+						}
+					}, 50)
 				}
 			})()
 			var form = document.getElementById('redeem-form')
